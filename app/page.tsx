@@ -1,13 +1,12 @@
-// filepath: /C:/Users/mohit/Downloads/cricket-player/cricket-player/app/page.tsx
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import JWPlayer from '../components/JWPlayer'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
 
-export default function Home() {
+function HomeContent() {
   const [url, setUrl] = useState('')
   const [isLive, setIsLive] = useState(false)
   const [shareableLink, setShareableLink] = useState('')
@@ -76,5 +75,13 @@ export default function Home() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   )
 }

@@ -1,10 +1,10 @@
 'use client'
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import JWPlayer from '../../components/JWPlayer'
 
-export default function WatchPage() {
+function WatchContent() {
   const searchParams = useSearchParams()
   const url = searchParams.get('url')
   const isLive = searchParams.get('live') === 'true'
@@ -23,3 +23,10 @@ export default function WatchPage() {
   )
 }
 
+export default function WatchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <WatchContent />
+    </Suspense>
+  )
+}
